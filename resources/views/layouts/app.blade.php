@@ -10,6 +10,9 @@
     <body>
       {{-- ナビゲーションバー --}}
         @include('commons.navbar')
+       <div class="container">
+            {{-- エラーメッセージ --}}
+            @include('commons.error_tasks')
 
         <div class="container">
             @yield('content')

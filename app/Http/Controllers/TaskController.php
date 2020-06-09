@@ -25,7 +25,7 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    { 
        $task=new Task;
        return view('tasks.create',['task'=>$task,
        ]);//
@@ -38,9 +38,16 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { $task=new Task;
-      $task->content=$request->content;
-      $task->save();
+    
+    { 
+        $request->validate([
+            'content' => 'required|max:255',
+            'status' => 'required|max:10',
+        ]);
+       $task = new Task;
+       $task->status = $request->status;   
+       $task->content=$request->content;
+       $task->save();
       
       return redirect('/');
         //
@@ -53,7 +60,9 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {  $task=Task::findOrFail($id);
+    
+    { 
+        $task=Task::findOrFail($id);
        
        return view('tasks.show',['task'=>$task,]);
         //
@@ -80,9 +89,13 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   $request->validate([
+            'content' => 'required|max:255',
+            'status' => 'required|max:10',
+        ]);
+
         $task = Task::findOrFail($id);
-        // メッセージを更新
+        $task->status = $request->status;   // メッセージを更新
         $task->content = $request->content;
         $task->save();
 
