@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@include('commons.nav')
+
 @section('content')
     <div class="text-center">
         <h1>Sign up</h1>

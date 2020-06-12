@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@include('commons.nav')
 @section('content')
 
     <h1>タスク一覧</h1>
@@ -10,7 +10,7 @@
                <tr>
                     <th>id</th>
                     <th>ステータス</th>
-                    <th>ラベル</th>
+                    <th>メッセージ</th>
                 </tr>
             </thead>
             <tbody>
