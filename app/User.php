@@ -26,13 +26,17 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
+        
     ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    public function tasks()
+    {
+        return $this->hasMany(tasks::class);
+    }
+    public function loadRelationshipCounts()
+    {
+        $this->loadCount('tasks');
+    }
+    
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];

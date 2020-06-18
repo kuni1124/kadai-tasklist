@@ -17,7 +17,7 @@ class TaskController extends Controller
       return view('tasks.index',[
           'tasks'=>$tasks,
           ]);
-         
+          
     }
 
     /**
@@ -48,6 +48,7 @@ class TaskController extends Controller
        $task = new Task;
        $task->status = $request->status;   
        $task->content=$request->content;
+       $task->user_id=\Auth::id();
        $task->save();
       
       return redirect('tasks');
@@ -64,10 +65,21 @@ class TaskController extends Controller
     
     { 
         $task=Task::findOrFail($id);
+        if($task->user_id === \Auth::id()){
+             return view('tasks.show',['task'=>$task,]); 
+              
+          }else{
+                return redirect('/');
+          }
+      
+            // return view('tasks.show',['task'=>$task,]);
        
-       return view('tasks.show',['task'=>$task,]);
-        //
-    }
+    } 
+
+       
+      
+      
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -98,8 +110,9 @@ class TaskController extends Controller
         $task = Task::findOrFail($id);
         $task->status = $request->status;   // メッセージを更新
         $task->content = $request->content;
+       
         $task->save();
-
+        
         // トップページへリダイレクトさせる
         return redirect('tasks');//
     }
@@ -120,4 +133,9 @@ class TaskController extends Controller
         return redirect('tasks');
         //
     }
+    
+        
+        
+    
+
 }

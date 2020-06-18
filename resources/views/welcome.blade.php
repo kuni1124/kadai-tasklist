@@ -4,7 +4,7 @@
 
  @section('content')
    @if (Auth::check())
-        {{ Auth::user()->name }}
+       @include('tasks.index')
     @else
 
     <div class="center jumbotron">
